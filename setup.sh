@@ -45,7 +45,8 @@ sudo apt-get install -y helm
 echo "install golang packages"
 sudo add-apt-repository ppa:longsleep/golang-backports
 sudo apt update -y
-sudo apt-get -y install make golang 
+sudo apt-get -y install make golang redis-server
+sudo systemctl restart redis.service
 
 echo "Install dlv pkg"
  git clone https://github.com/go-delve/delve.git $GOPATH/src/github.com/go-delve/delve
@@ -60,5 +61,8 @@ go get sigs.k8s.io/kind@v0.10.0
 echo export PATH=$PATH:/home/vagrant/go/bin >> ~/.bashrc
 echo export PATH=$PATH:/root/go/bin >> ~/.bashrc
 
+curl -L -o opa https://openpolicyagent.org/downloads/latest/opa_linux_amd64
+chmod 755 ./opa
+sudo mv ./opa /usr/local/bin/opa
 ####create cluster
 echo "Finished provisioning."
